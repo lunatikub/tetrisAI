@@ -5,7 +5,7 @@ var tetrominoL = tetromino{
 	[]piece{
 
 		// +---+
-		// +X..|
+		// |X..|
 		// |XXX|
 		// +---+
 		{
@@ -35,7 +35,7 @@ var tetrominoL = tetromino{
 		},
 
 		// +---+
-		// +XXX|
+		// |XXX|
 		// |..X|
 		// +---+
 		{
