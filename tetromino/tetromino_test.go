@@ -44,10 +44,6 @@ func (t *tetromino) TestTetromino(test *testing.T) {
 	}
 }
 
-func TestTetrominoZ(test *testing.T) {
-	tetrominoZ.TestTetromino(test)
-}
-
 func TestTetrominoI(test *testing.T) {
 	tetrominoI.TestTetromino(test)
 }
@@ -62,4 +58,16 @@ func TestTetrominoL(test *testing.T) {
 
 func TestTetrominoO(test *testing.T) {
 	tetrominoO.TestTetromino(test)
+}
+
+func TestTetrominoS(test *testing.T) {
+	tetrominoS.TestTetromino(test)
+}
+
+func TestTetrominoT(test *testing.T) {
+	tetrominoT.TestTetromino(test)
+}
+
+func TestTetrominoZ(test *testing.T) {
+	tetrominoZ.TestTetromino(test)
 }
