@@ -51,3 +51,7 @@ func TestTetrominoZ(test *testing.T) {
 func TestTetrominoI(test *testing.T) {
 	tetrominoI.TestTetromino(test)
 }
+
+func TestTetrominoJ(test *testing.T) {
+	tetrominoJ.TestTetromino(test)
+}
