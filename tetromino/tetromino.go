@@ -1,24 +1,19 @@
 package tetromino
 
-const (
-	maxRotation = 4
-	nrRow       = 4
-	nrCol       = 4
-)
-
-// Tetromino rotation
-type tRot [nrRow][nrCol]int
-
-// Tetromino definition
-type tDef struct {
-	rot tRot        // Tetromino rotation
-	hc  [nrCol]uint // Height by column
-	h   uint        // Height of the tetromino
-	w   uint        // Width of the tetromino
+// Tetromino piece
+type piece struct {
+	cells     [][]int // Tetromino cells
+	heightCol []int   // Height by column
+	height    int
+	width     int
 }
 
-// Tetromino is a game piece
-type Tetromino struct {
-	nrRotation uint              // number of rotation
-	defs       [maxRotation]tDef // tetromino rotations
+// tetromino is a set of piece rotations
+type tetromino struct {
+	name   string
+	pieces []piece // tetromino piece rotations
+}
+
+func (p *piece) isFilled(y int, x int) bool {
+	return p.cells[y][x] == 1
 }
