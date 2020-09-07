@@ -1,8 +1,9 @@
 package tetromino
 
-var tetrominoT = tetromino{
+// TetrominoT té
+var TetrominoT = Definition{
 	"T",
-	[]piece{
+	[]Piece{
 
 		// +---+
 		// |.X.|

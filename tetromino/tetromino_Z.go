@@ -1,8 +1,9 @@
 package tetromino
 
-var tetrominoZ = tetromino{
+// TetrominoZ inverted bias
+var tetrominoZ = Definition{
 	"Z",
-	[]piece{
+	[]Piece{
 
 		// +---+
 		// |XX.|

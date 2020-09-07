@@ -1,8 +1,9 @@
 package tetromino
 
-var tetrominoS = tetromino{
+// TetrominoS bias
+var TetrominoS = Definition{
 	"S",
-	[]piece{
+	[]Piece{
 
 		// +---+
 		// |.XX|

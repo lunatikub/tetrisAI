@@ -1,8 +1,9 @@
 package tetromino
 
-var tetrominoL = tetromino{
+// TetrominoL lambda
+var TetrominoL = Definition{
 	"L",
-	[]piece{
+	[]Piece{
 
 		// +---+
 		// |X..|

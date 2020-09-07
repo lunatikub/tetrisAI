@@ -1,19 +1,36 @@
 package tetromino
 
-// Tetromino piece
-type piece struct {
-	cells     [][]int // Tetromino cells
-	heightCol []int   // Height by column
-	height    int
-	width     int
+//  +---------+---------+---------+
+//  | I: XXXX | L: XXX  | J: XXX  |
+//  |         |      X  |    X    |
+//  +---------+---------+---------+
+//  | O:  XX  | S:  XX  | T:  X   |
+//  |     XX  |    XX   |    XXX  |
+//  +---------+---------+---------+
+//  | Z: XX   |
+//  |     XX  |
+//  +---------+
+//  */
+const (
+	I = iota
+	J
+	L
+	O
+	S
+	T
+	Z
+)
+
+// Piece rotation
+type Piece struct {
+	Blocks    [][]int
+	HeightCol []int
+	Height    int
+	Width     int
 }
 
-// tetromino is a set of piece rotations
-type tetromino struct {
-	name   string
-	pieces []piece // tetromino piece rotations
-}
-
-func (p *piece) isFilled(y int, x int) bool {
-	return p.cells[y][x] == 1
+// Definition is a set of piece rotations
+type Definition struct {
+	Name   string
+	Pieces []Piece // tetromino piece rotations
 }

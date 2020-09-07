@@ -1,8 +1,9 @@
 package tetromino
 
-var tetrominoJ = tetromino{
+// TetrominoJ inveted L / gamma
+var TetrominoJ = Definition{
 	"J",
-	[]piece{
+	[]Piece{
 
 		// +---+
 		// |..X|
