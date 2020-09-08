@@ -4,6 +4,64 @@ import (
 	"testing"
 )
 
+func (p *piece) testHC(test *testing.T, name *string, r int) bool {
+	var hc [4]int
+	for x := 0; x < p.width; x++ {
+		for y := 0; y < p.height; y++ {
+			if p.blocks[y][x] == 1 {
+				hc[x] = p.height - y
+				break
+			}
+		}
+	}
+	for i, v := range p.heightCol {
+		if v != hc[i] {
+			test.Errorf("tetromino [%s,%d]: holes[%d] expected:%d, got:%d",
+				*name, r, i, v, hc[i])
+			return false
+		}
+	}
+	return true
+}
+
+func (p *piece) testHoles(test *testing.T, name *string, r int) bool {
+	var holes [4]int
+	for x := 0; x < p.width; x++ {
+		y := p.height - 1
+		for {
+			if y == 0 || p.blocks[y][x] == 1 {
+				break
+			}
+			y--
+		}
+		holes[x] = p.height - y - 1
+	}
+	for i, v := range p.holes {
+		if v != holes[i] {
+			test.Errorf("tetromino [%s,%d]: holes[%d] expected:%d, got:%d",
+				*name, r, i, v, holes[i])
+			return false
+		}
+	}
+	return true
+}
+
+func (p *piece) testNrBlock(test *testing.T, name *string, r int) bool {
+	n := 0
+	for y, row := range p.blocks {
+		for x := range row {
+			if p.blocks[y][x] == 1 {
+				n++
+			}
+		}
+	}
+	if n != 4 {
+		test.Errorf("tetromino [%s,%d]: expected 4 cells, got: %d", *name, r, n)
+		return false
+	}
+	return true
+}
+
 func (t *tetromino) testTetromino(test *testing.T) {
 	for r, p := range t.pieces {
 
@@ -13,35 +71,16 @@ func (t *tetromino) testTetromino(test *testing.T) {
 			return
 		}
 
-		var holes [4]int
-		for x := 0; x < p.width; x++ {
-			y := p.height - 1
-			for {
-				if y == 0 || p.blocks[y][x] == 1 {
-					break
-				}
-				y--
-			}
-			holes[x] = p.height - y - 1
-		}
-		for i, v := range p.holes {
-			if v != holes[i] {
-				test.Errorf("tetromino [%s,%d]: holes[%d] expected:%d, got:%d",
-					t.name, r, i, v, holes[i])
-				return
-			}
+		if !p.testHC(test, &t.name, r) {
+			return
 		}
 
-		n := 0
-		for y, row := range p.blocks {
-			for x := range row {
-				if p.blocks[y][x] == 1 {
-					n++
-				}
-			}
+		if !p.testHoles(test, &t.name, r) {
+			return
 		}
-		if n != 4 {
-			test.Errorf("tetromino [%s,%d]: expected 4 cells, got: %d", t.name, r, n)
+
+		if !p.testNrBlock(test, &t.name, r) {
+			return
 		}
 	}
 }
