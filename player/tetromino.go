@@ -1,4 +1,4 @@
-package tetromino
+package player
 
 //  +---------+---------+---------+
 //  | I: XXXX | L: XXX  | J: XXX  |
@@ -22,15 +22,15 @@ const (
 )
 
 // Piece rotation
-type Piece struct {
-	Blocks    [][]int
-	HeightCol []int
-	Height    int
-	Width     int
+type piece struct {
+	blocks    [][]int
+	heightCol []int
+	height    int
+	width     int
 }
 
-// Definition is a set of piece rotations
-type Definition struct {
-	Name   string
-	Pieces []Piece // tetromino piece rotations
+// A tetromino is a set of piece rotations
+type tetromino struct {
+	name   string
+	pieces []piece // tetromino piece rotations
 }

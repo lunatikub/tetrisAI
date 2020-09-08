@@ -1,9 +1,8 @@
-package tetromino
+package player
 
-// TetrominoZ inverted bias
-var tetrominoZ = Definition{
+var tetrominoZ = tetromino{
 	"Z",
-	[]Piece{
+	[]piece{
 
 		// +---+
 		// |XX.|

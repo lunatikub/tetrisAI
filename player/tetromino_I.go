@@ -1,9 +1,8 @@
-package tetromino
+package player
 
-// TetrominoI stick / bar / long
-var TetrominoI = Definition{
+var tetrominoI = tetromino{
 	"I",
-	[]Piece{
+	[]piece{
 
 		// +----+
 		// |XXXX|

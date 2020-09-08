@@ -1,9 +1,8 @@
-package tetromino
+package player
 
-// TetrominoS bias
-var TetrominoS = Definition{
+var tetrominoS = tetromino{
 	"S",
-	[]Piece{
+	[]piece{
 
 		// +---+
 		// |.XX|

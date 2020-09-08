@@ -1,9 +1,8 @@
-package tetromino
+package player
 
-// TetrominoO square / block
-var TetrominoO = Definition{
+var tetrominoO = tetromino{
 	"O",
-	[]Piece{
+	[]piece{
 
 		// +--+
 		// |XX|

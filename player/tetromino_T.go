@@ -1,48 +1,47 @@
-package tetromino
+package player
 
-// TetrominoJ inveted L / gamma
-var TetrominoJ = Definition{
-	"J",
-	[]Piece{
+var tetrominoT = tetromino{
+	"T",
+	[]piece{
 
 		// +---+
-		// |..X|
+		// |.X.|
 		// |XXX|
 		// +---+
 		{
 			[][]int{
-				{0, 0, 1},
+				{0, 1, 0},
 				{1, 1, 1},
 			},
-			[]int{1, 1, 2},
+			[]int{1, 2, 1},
 			2,
 			3,
 		},
 
 		// +--+
-		// |X.|
 		// |X.|
 		// |XX|
+		// |X.|
 		// +--+
 		{
 			[][]int{
 				{1, 0},
-				{1, 0},
 				{1, 1},
+				{1, 0},
 			},
-			[]int{3, 1},
+			[]int{3, 2},
 			3,
 			2,
 		},
 
 		// +---+
 		// |XXX|
-		// |X..|
+		// |.X.|
 		// +---+
 		{
 			[][]int{
 				{1, 1, 1},
-				{1, 0, 0},
+				{0, 1, 0},
 			},
 			[]int{2, 2, 2},
 			2,
@@ -50,17 +49,17 @@ var TetrominoJ = Definition{
 		},
 
 		// +--+
-		// |XX|
 		// |.X|
+		// |XX|
 		// |.X|
 		// +--+
 		{
 			[][]int{
+				{0, 1},
 				{1, 1},
 				{0, 1},
-				{0, 1},
 			},
-			[]int{3, 3},
+			[]int{2, 3},
 			3,
 			2,
 		},
