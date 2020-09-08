@@ -6,5 +6,5 @@ import (
 
 func main() {
 	var p player.Player
-	p.DumpField()
+	p.Dump()
 }

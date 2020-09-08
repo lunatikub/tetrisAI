@@ -23,10 +23,10 @@ const (
 
 // Piece rotation
 type piece struct {
-	blocks    [][]int
-	heightCol []int
-	height    int
-	width     int
+	blocks [][]int
+	holes  []int
+	height int
+	width  int
 }
 
 // A tetromino is a set of piece rotations

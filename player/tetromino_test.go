@@ -13,19 +13,21 @@ func (t *tetromino) testTetromino(test *testing.T) {
 			return
 		}
 
-		var hc [4]int
+		var holes [4]int
 		for x := 0; x < p.width; x++ {
-			for y := 0; y < p.height; y++ {
-				if p.blocks[y][x] == 1 {
-					hc[x] = p.height - y
+			y := p.height - 1
+			for {
+				if y == 0 || p.blocks[y][x] == 1 {
 					break
 				}
+				y--
 			}
+			holes[x] = p.height - y - 1
 		}
-		for i, v := range p.heightCol {
-			if v != hc[i] {
-				test.Errorf("tetromino [%s,%d]: heightCol[%d] expected:%d, got:%d",
-					t.name, r, i, v, hc[i])
+		for i, v := range p.holes {
+			if v != holes[i] {
+				test.Errorf("tetromino [%s,%d]: holes[%d] expected:%d, got:%d",
+					t.name, r, i, v, holes[i])
 				return
 			}
 		}

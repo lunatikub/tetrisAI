@@ -11,7 +11,7 @@ var tetrominoI = tetromino{
 			[][]int{
 				{1, 1, 1, 1},
 			},
-			[]int{1, 1, 1, 1},
+			[]int{0, 0, 0, 0},
 			1,
 			4,
 		},
@@ -29,7 +29,7 @@ var tetrominoI = tetromino{
 				{1},
 				{1},
 			},
-			[]int{4},
+			[]int{0},
 			4,
 			1,
 		},
