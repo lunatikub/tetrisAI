@@ -4,21 +4,28 @@ import (
 	"testing"
 )
 
-func (f *field) setRow(y int, row []int) {
-	for x := range row {
-		f.blocks[y][x] = row[x]
-	}
-}
-
 func TestDeltaR(test *testing.T) {
 	f := newField(fieldHeight, fieldWidth)
 
 	// ..XXX.X.X.
 	// .X.X.X.X.X
-	f.setRow(18, []int{0011101010})
-	f.setRow(19, []int{0101010101})
+	copy(f.blocks[18], []int{0, 0, 1, 1, 1, 0, 1, 0, 1, 0})
+	copy(f.blocks[19], []int{0, 1, 0, 1, 0, 1, 0, 1, 0, 1})
 
 	if dr := f.deltaR(); dr != 15 {
-		test.Errorf("Expected DR:15, got DR:%d", dr)
+		test.Errorf("DeltaR: expected:15, got:%d", dr)
+	}
+}
+
+func TestDeltaC(test *testing.T) {
+	f := newField(fieldHeight, fieldWidth)
+
+	// ..XXX.X.X.
+	// .X.X.X.X.X
+	copy(f.blocks[18], []int{0, 0, 1, 1, 1, 0, 1, 0, 1, 0})
+	copy(f.blocks[19], []int{0, 1, 0, 1, 0, 1, 0, 1, 0, 1})
+
+	if dc := f.deltaC(); dc != 13 {
+		test.Errorf("DeltaC: expected:13, got:%d", dc)
 	}
 }
