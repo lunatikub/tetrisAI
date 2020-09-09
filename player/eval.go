@@ -25,3 +25,19 @@ func (f *field) deltaC() int {
 	}
 	return dc
 }
+
+func (f *field) holes() int {
+	ho := 0
+	for x := 0; x < f.width; x++ {
+		once := false
+		for y := 0; y < f.height; y++ {
+			if !once && f.blocks[y][x] == 1 {
+				once = true
+			}
+			if once && f.blocks[y][x] == 0 {
+				ho++
+			}
+		}
+	}
+	return ho
+}
