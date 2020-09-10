@@ -45,3 +45,17 @@ func TestHoles(test *testing.T) {
 		test.Errorf("Holes: expected:%d, got:%d", expectedHo, ho)
 	}
 }
+
+func TestWells(test *testing.T) {
+	f := newField(fieldHeight, fieldWidth)
+
+	f.setRow(16, []int{1})
+	f.setRow(17, []int{1, 0, 1})
+	f.setRow(18, []int{1, 0, 1, 0, 1})
+	f.setRow(19, []int{1, 0, 1, 0, 1, 0, 1})
+
+	expectedWe := 10
+	if we := f.wells(); we != expectedWe {
+		test.Errorf("Wells: expected:%d, got:%d", expectedWe, we)
+	}
+}

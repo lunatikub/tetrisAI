@@ -37,3 +37,35 @@ func (f *field) holes() int {
 	}
 	return ho
 }
+
+// sumSeq(n) = 1 + 2 + 3 + ... + N
+func sumSeq(n int) int {
+	return (n * (n + 1)) / 2
+}
+
+// get the minimum height between both neighbors of the well
+func (f *field) getMinHeightNeighbors(x int) int {
+	l := 0 // height of the left neighbor
+	r := 0 // height of the right neighbor
+	if x != 0 {
+		l = f.col[x-1]
+	}
+	if x != f.width-1 {
+		r = f.col[x+1]
+	}
+	if l > r {
+		return r
+	}
+	return l
+}
+
+func (f *field) wells() int {
+	we := 0
+	for x := 0; x < f.width; x++ {
+		min := f.getMinHeightNeighbors(x)
+		if min > f.col[x] {
+			we += sumSeq(min - f.col[x])
+		}
+	}
+	return we
+}
