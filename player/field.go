@@ -10,6 +10,7 @@ type field struct {
 	width  int
 }
 
+// Create a new field for the tetris game
 func newField(h int, w int) field {
 	var f field
 	f.blocks = make([][]int, h)
@@ -23,6 +24,7 @@ func newField(h int, w int) field {
 	return f
 }
 
+// Get the Y coordonate to set a piece
 func (f *field) getY(p *piece, x int) int {
 	y := 0
 	for i := 0; i < p.width; i++ {

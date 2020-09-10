@@ -7,10 +7,8 @@ import (
 func TestDeltaR(test *testing.T) {
 	f := newField(fieldHeight, fieldWidth)
 
-	// ..XXX.X.X.
-	// .X.X.X.X.X
-	copy(f.blocks[18], []int{0, 0, 1, 1, 1, 0, 1, 0, 1, 0})
-	copy(f.blocks[19], []int{0, 1, 0, 1, 0, 1, 0, 1, 0, 1})
+	f.setRow(18, []int{0, 0, 1, 1, 1, 0, 1, 0, 1, 0})
+	f.setRow(19, []int{0, 1, 0, 1, 0, 1, 0, 1, 0, 1})
 
 	expectedDr := 15
 	if dr := f.deltaR(); dr != expectedDr {
@@ -21,13 +19,15 @@ func TestDeltaR(test *testing.T) {
 func TestDeltaC(test *testing.T) {
 	f := newField(fieldHeight, fieldWidth)
 
-	// ..XXX.X.X.
-	// .X.X.X.X.X
-	copy(f.blocks[18], []int{0, 0, 1, 1, 1, 0, 1, 0, 1, 0})
-	copy(f.blocks[19], []int{0, 1, 0, 1, 0, 1, 0, 1, 0, 1})
+	f.setRow(18, []int{0, 0, 1, 1, 1, 0, 1, 0, 1, 0})
+	f.setRow(19, []int{0, 1, 0, 1, 0, 1, 0, 1, 0, 1})
 
 	expectedDc := 13
 	if dc := f.deltaC(); dc != expectedDc {
+		const (
+			fieldHeight = 20
+			fieldWidth  = 10
+		)
 		test.Errorf("DeltaC: expected:%d, got:%d", expectedDc, dc)
 	}
 }
@@ -35,14 +35,10 @@ func TestDeltaC(test *testing.T) {
 func TestHoles(test *testing.T) {
 	f := newField(fieldHeight, fieldWidth)
 
-	// X...X
-	// .X...
-	// ..X.X
-	// ...X.
-	copy(f.blocks[16], []int{1, 0, 0, 0, 1, 0, 0, 0, 0, 0})
-	copy(f.blocks[17], []int{0, 1, 0, 0, 0, 0, 0, 0, 0, 0})
-	copy(f.blocks[18], []int{0, 0, 1, 0, 1, 0, 0, 0, 0, 0})
-	copy(f.blocks[19], []int{0, 0, 0, 1, 0, 0, 0, 0, 0, 0})
+	f.setRow(16, []int{1, 0, 0, 0, 1, 0, 0, 0, 0, 0})
+	f.setRow(17, []int{0, 1, 0, 0, 0, 0, 0, 0, 0, 0})
+	f.setRow(18, []int{0, 0, 1, 0, 1, 0, 0, 0, 0, 0})
+	f.setRow(19, []int{0, 0, 0, 1, 0, 0, 0, 0, 0, 0})
 
 	expectedHo := 8
 	if ho := f.holes(); ho != expectedHo {
