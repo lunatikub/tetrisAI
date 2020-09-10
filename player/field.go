@@ -35,12 +35,23 @@ func (f *field) getY(p *piece, x int) int {
 	return f.height - y
 }
 
+func (f *field) updateCol() {
+	for x := 0; x < f.width; x++ {
+		y := 0
+		for {
+			if y == f.height || f.blocks[y][x] == 1 {
+				break
+			}
+			y++
+		}
+		f.col[x] = f.height - y
+	}
+}
+
 func (f *field) completeRow(y int) {
 	copy(f.blocks[1:], f.blocks[:y])
-	for i := range f.col {
-		f.col[i]--
-	}
 	copy(f.row[1:], f.row[:y])
+	f.updateCol()
 }
 
 func (f *field) push(p *piece, x int) bool {

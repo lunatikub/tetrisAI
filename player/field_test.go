@@ -115,3 +115,20 @@ func TestCompleteRow(test *testing.T) {
 		return
 	}
 }
+
+func TestCompleteRowWithHole(test *testing.T) {
+	f := newField(fieldHeight, fieldWidth)
+
+	f.setRow(18, []int{0, 0, 1, 1, 1, 1, 1, 1, 1, 1})
+	f.setRow(19, []int{0, 1, 1, 1, 1, 1, 1, 1, 1, 0})
+
+	f.push(&tetrominoS.pieces[0], 0)
+
+	if f.col[0] == 0 && f.col[1] == 2 && f.col[2] == 2 &&
+		f.col[3] == 1 && f.col[4] == 1 && f.col[5] == 1 &&
+		f.col[6] == 1 && f.col[7] == 1 && f.col[8] == 1 &&
+		f.col[9] == 0 {
+		return
+	}
+	test.Errorf("Test complete row with hole failed")
+}
