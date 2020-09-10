@@ -19,6 +19,7 @@ const (
 	S
 	T
 	Z
+	nrTetromino
 )
 
 // Piece rotation
@@ -34,4 +35,24 @@ type piece struct {
 type tetromino struct {
 	name   string
 	pieces []piece // tetromino piece rotations
+}
+
+func getTetromino(tetromino int) *tetromino {
+	switch tetromino {
+	case I:
+		return &tetrominoI
+	case J:
+		return &tetrominoJ
+	case L:
+		return &tetrominoL
+	case O:
+		return &tetrominoO
+	case S:
+		return &tetrominoS
+	case T:
+		return &tetrominoT
+	case Z:
+		return &tetrominoZ
+	}
+	panic("Not available tetromino")
 }
