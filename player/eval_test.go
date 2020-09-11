@@ -51,8 +51,8 @@ func TestWells(test *testing.T) {
 
 	f.setRow(16, []int{1})
 	f.setRow(17, []int{1, 0, 1})
-	f.setRow(18, []int{1, 0, 1, 0, 1})
-	f.setRow(19, []int{1, 0, 1, 0, 1, 0, 1})
+	f.setRow(18, []int{1, 0, 1, 0, 1, 0, 1})
+	f.setRow(19, []int{1, 0, 1, 1, 1, 0, 1})
 
 	expectedWe := 10
 	if we := f.wells(); we != expectedWe {

@@ -19,7 +19,7 @@ const (
 	S
 	T
 	Z
-	nrTetromino
+	nrtetrimino
 )
 
 // Piece rotation
@@ -31,28 +31,28 @@ type piece struct {
 	width     int
 }
 
-// A tetromino is a set of piece rotations
-type tetromino struct {
+// A tetrimino is a set of piece rotations
+type tetrimino struct {
 	name   string
-	pieces []piece // tetromino piece rotations
+	pieces []piece // tetrimino piece rotations
 }
 
-func getTetromino(tetromino int) *tetromino {
-	switch tetromino {
+func gettetrimino(tetrimino int) *tetrimino {
+	switch tetrimino {
 	case I:
-		return &tetrominoI
+		return &tetriminoI
 	case J:
-		return &tetrominoJ
+		return &tetriminoJ
 	case L:
-		return &tetrominoL
+		return &tetriminoL
 	case O:
-		return &tetrominoO
+		return &tetriminoO
 	case S:
-		return &tetrominoS
+		return &tetriminoS
 	case T:
-		return &tetrominoT
+		return &tetriminoT
 	case Z:
-		return &tetrominoZ
+		return &tetriminoZ
 	}
-	panic("Not available tetromino")
+	panic("Not available tetrimino")
 }

@@ -5,14 +5,14 @@ import (
 )
 
 const (
-	nrNextTetrominoes = 5
+	nrNexttetriminoes = 5
 	heightField       = 20
 	widthField        = 10
 )
 
 func main() {
 	p := tetris.NewPlayer(heightField, widthField)
-	emu := tetris.NewEmu(nrNextTetrominoes)
+	emu := tetris.NewEmu(nrNexttetriminoes)
 
 	n := 0
 

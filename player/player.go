@@ -17,7 +17,7 @@ func NewPlayer(h int, w int) *Player {
 
 // Move Do the next move for the player
 func (p *Player) Move(currT int, nextT []int) {
-	t := getTetromino(currT)
+	t := gettetrimino(currT)
 	fmt.Println("move", t.name)
 	for _, piece := range t.pieces {
 		for x := 0; x < p.field.width-piece.width+1; x++ {

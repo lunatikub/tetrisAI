@@ -1,6 +1,6 @@
 package player
 
-var tetrominoT = tetromino{
+var tetriminoT = tetrimino{
 	"T",
 	[]piece{
 
