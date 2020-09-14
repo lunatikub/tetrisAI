@@ -6,7 +6,7 @@ import (
 
 func (f *field) testGetYPlay(test *testing.T, t *tetrimino, r int, x int, expectedY int) {
 	p := &t.pieces[r]
-	if y := f.getY(p, x); y != expectedY {
+	if y := f.getRow(p, x); y != expectedY {
 		test.Errorf("tetrimino [%s,r:%d,x:%d]: expected:%d, got:%d",
 			t.name, r, x, expectedY, y)
 	}
@@ -96,7 +96,7 @@ func (f *field) fieldIsEmpty(test *testing.T) bool {
 	return true
 }
 
-func TestCompleteRow(test *testing.T) {
+func TestClearRow(test *testing.T) {
 	f := newField(fieldHeight, fieldWidth)
 
 	f.push(&tetriminoI.pieces[0], 0)
@@ -116,7 +116,7 @@ func TestCompleteRow(test *testing.T) {
 	}
 }
 
-func TestCompleteRowWithHole(test *testing.T) {
+func TestClearRowWithHole(test *testing.T) {
 	f := newField(fieldHeight, fieldWidth)
 
 	f.setRow(18, []int{0, 0, 1, 1, 1, 1, 1, 1, 1, 1})
@@ -130,5 +130,5 @@ func TestCompleteRowWithHole(test *testing.T) {
 		f.col[9] == 0 {
 		return
 	}
-	test.Errorf("Test complete row with hole failed")
+	test.Errorf("Test clear row with hole failed")
 }

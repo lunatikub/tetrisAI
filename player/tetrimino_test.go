@@ -62,7 +62,7 @@ func (p *piece) testNrBlock(test *testing.T, name *string, r int) bool {
 	return true
 }
 
-func (t *tetrimino) testtetrimino(test *testing.T) {
+func (t *tetrimino) testTetrimino(test *testing.T) {
 	for r, p := range t.pieces {
 
 		if p.width != len(p.blocks[0]) || p.height != len(p.blocks) {
@@ -86,29 +86,29 @@ func (t *tetrimino) testtetrimino(test *testing.T) {
 }
 
 func TestTetriminoI(test *testing.T) {
-	tetriminoI.testtetrimino(test)
+	tetriminoI.testTetrimino(test)
 }
 
 func TestTetriminoJ(test *testing.T) {
-	tetriminoJ.testtetrimino(test)
+	tetriminoJ.testTetrimino(test)
 }
 
 func testTetriminoL(test *testing.T) {
-	tetriminoL.testtetrimino(test)
+	tetriminoL.testTetrimino(test)
 }
 
 func TestTetriminoO(test *testing.T) {
-	tetriminoO.testtetrimino(test)
+	tetriminoO.testTetrimino(test)
 }
 
 func TestTetriminoS(test *testing.T) {
-	tetriminoS.testtetrimino(test)
+	tetriminoS.testTetrimino(test)
 }
 
 func TestTetriminoT(test *testing.T) {
-	tetriminoT.testtetrimino(test)
+	tetriminoT.testTetrimino(test)
 }
 
 func TestTetriminoZ(test *testing.T) {
-	tetriminoZ.testtetrimino(test)
+	tetriminoZ.testTetrimino(test)
 }

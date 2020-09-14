@@ -24,8 +24,8 @@ func newField(h int, w int) field {
 	return f
 }
 
-// Get the Y coordonate to set a piece
-func (f *field) getY(p *piece, x int) int {
+// Get the row how to push a piece
+func (f *field) getRow(p *piece, x int) int {
 	y := 0
 	for i := 0; i < p.width; i++ {
 		if r := f.col[x+i] - p.holes[i]; r > y {
@@ -35,7 +35,7 @@ func (f *field) getY(p *piece, x int) int {
 	return f.height - y
 }
 
-func (f *field) updateCol() {
+func (f *field) setCol() {
 	for x := 0; x < f.width; x++ {
 		y := 0
 		for {
@@ -48,17 +48,27 @@ func (f *field) updateCol() {
 	}
 }
 
-func (f *field) completeRow(y int) {
-	copy(f.blocks[1:], f.blocks[:y])
-	copy(f.row[1:], f.row[:y])
-	f.updateCol()
+func (f *field) updateRow(y int) {
+	f.row[y]++
+	// clear the row when it is full
+	if f.row[y] == f.width {
+		copy(f.blocks[1:], f.blocks[:y])
+		copy(f.row[1:], f.row[:y])
+		f.setCol()
+	}
+}
+
+func (f *field) updateCol(x int, h int) {
+	if f.height-h > f.col[x] {
+		f.col[x] = f.height - h
+	}
 }
 
 func (f *field) push(p *piece, x int) bool {
 	if x+p.width > f.width {
 		return false
 	}
-	y := f.getY(p, x)
+	y := f.getRow(p, x)
 	if y-p.height < 0 {
 		return false
 	}
@@ -68,13 +78,8 @@ func (f *field) push(p *piece, x int) bool {
 		for j, v := range row {
 			if v == 1 {
 				f.blocks[k][j+x] = v
-				f.row[k]++
-				if f.height-k > f.col[j+x] {
-					f.col[j+x] = f.height - k
-				}
-				if f.row[k] == f.width {
-					f.completeRow(k)
-				}
+				f.updateCol(j+x, k)
+				f.updateRow(k)
 			}
 		}
 	}

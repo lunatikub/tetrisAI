@@ -19,7 +19,7 @@ const (
 	S
 	T
 	Z
-	nrtetrimino
+	nrTetrimino
 )
 
 // Piece rotation
@@ -37,7 +37,7 @@ type tetrimino struct {
 	pieces []piece // tetrimino piece rotations
 }
 
-func gettetrimino(tetrimino int) *tetrimino {
+func getTetrimino(tetrimino int) *tetrimino {
 	switch tetrimino {
 	case I:
 		return &tetriminoI

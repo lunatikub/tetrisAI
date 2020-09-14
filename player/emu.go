@@ -17,9 +17,9 @@ func NewEmu(n int) *Emu {
 	emu := new(Emu)
 	rand.Seed(time.Now().UnixNano())
 	emu.NextT = make([]int, n)
-	emu.CurrT = rand.Intn(nrtetrimino)
+	emu.CurrT = rand.Intn(nrTetrimino)
 	for x := range emu.NextT {
-		emu.NextT[x] = rand.Intn(nrtetrimino)
+		emu.NextT[x] = rand.Intn(nrTetrimino)
 	}
 	return emu
 }
@@ -28,7 +28,7 @@ func NewEmu(n int) *Emu {
 func (e *Emu) Next() {
 	e.CurrT = e.NextT[0]
 	copy(e.NextT[0:], e.NextT[1:])
-	e.NextT[len(e.NextT)-1] = rand.Intn(nrtetrimino)
+	e.NextT[len(e.NextT)-1] = rand.Intn(nrTetrimino)
 }
 
 // Dump the current tetrimino and the next tetriminoes
