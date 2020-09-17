@@ -1,5 +1,13 @@
 package player
 
+// Erosion is process at push.
+// Identifer: e
+
+// Height of last tetrimino played is process at push.
+// Identifier: l
+
+// Process row transitions.
+// Identifer: dr
 func (f *field) deltaR() int {
 	dr := 0
 	for y := range f.blocks {
@@ -13,6 +21,8 @@ func (f *field) deltaR() int {
 	return dr
 }
 
+// Process column transitions.
+// Identifer: dc
 func (f *field) deltaC() int {
 	dc := 0
 	for x := 0; x < f.width; x++ {
@@ -26,6 +36,8 @@ func (f *field) deltaC() int {
 	return dc
 }
 
+// Process the holes.
+// Identifier: L
 func (f *field) holes() int {
 	ho := 0
 	for x := 0; x < f.width; x++ {
@@ -59,6 +71,8 @@ func (f *field) getMinHeightNeighbors(x int) int {
 	return l
 }
 
+// Process the whells.
+// Identifier: W
 func (f *field) wells() int {
 	we := 0
 	for x := 0; x < f.width; x++ {

@@ -59,3 +59,36 @@ func TestWells(test *testing.T) {
 		test.Errorf("Wells: expected:%d, got:%d", expectedWe, we)
 	}
 }
+
+func TestErosion(test *testing.T) {
+	f := newField(fieldHeight, fieldWidth)
+
+	f.setRow(18, []int{0, 0, 0, 1, 1, 1, 1, 1, 1, 1})
+	f.setRow(19, []int{1, 0, 1, 1, 1, 1, 1, 1, 1, 1})
+	f.push(&tetriminoT.pieces[2], 0)
+
+	expected := 8
+	if f.erosion != expected {
+		test.Errorf("Erosion: expected:%d, got:%d", expected, f.erosion)
+	}
+
+	f.setRow(19, []int{0, 0, 1, 1, 1, 1, 1, 1, 1, 1})
+	f.push(&tetriminoO.pieces[0], 0)
+
+	expected = 2
+	if f.erosion != expected {
+		test.Errorf("Erosion: expected:%d, got:%d", expected, f.erosion)
+	}
+}
+
+func TestHLT(test *testing.T) {
+	f := newField(fieldHeight, fieldWidth)
+
+	f.setRow(19, []int{0, 0, 1, 1, 1, 1, 1, 1, 1, 1})
+	f.push(&tetriminoO.pieces[0], 1)
+
+	expected := 1
+	if f.hlt != expected {
+		test.Errorf("Erosion: expected:%d, got:%d", expected, f.hlt)
+	}
+}

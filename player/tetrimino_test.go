@@ -5,6 +5,19 @@ import (
 )
 
 func (p *piece) testBlockRow(test *testing.T, name *string, r int) bool {
+	for y := 0; y < p.height; y++ {
+		nrBlock := 0
+		for x := 0; x < p.width; x++ {
+			if p.blocks[y][x] == 1 {
+				nrBlock++
+			}
+		}
+		if nrBlock != p.blockRow[y] {
+			test.Errorf("tetrimino [%s,%d]: blockRow[%d] expected:%d, got:%d",
+				*name, r, y, p.blockRow[y], nrBlock)
+			return false
+		}
+	}
 	return true
 }
 
@@ -72,7 +85,7 @@ func (p *piece) testDim(test *testing.T, name *string, r int) bool {
 			*name, r, p.height, p.width, len(p.blocks), len(p.blocks[0]))
 		return false
 	}
-	if p.width != len(p.holes) || p.width != len(p.heightCol) || p.height != len(p.blocksRow) {
+	if p.width != len(p.holes) || p.width != len(p.heightCol) || p.height != len(p.blockRow) {
 		test.Errorf("tetrimino [%s,%d]: dims holes or heightCol or blocksRow unexpected", *name, r)
 		return false
 	}
@@ -87,12 +100,13 @@ func (t *tetrimino) testTetrimino(test *testing.T) {
 		if !p.testHC(test, &t.name, r) {
 			return
 		}
-
 		if !p.testHoles(test, &t.name, r) {
 			return
 		}
-
 		if !p.testNrBlock(test, &t.name, r) {
+			return
+		}
+		if !p.testBlockRow(test, &t.name, r) {
 			return
 		}
 	}

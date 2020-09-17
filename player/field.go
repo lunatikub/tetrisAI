@@ -78,6 +78,7 @@ func (f *field) push(p *piece, x int) bool {
 	}
 
 	nrCompletedRow := 0
+	nrCompletedCell := 0
 	for i, row := range p.blocks {
 		k := i + y - p.height
 		for j, v := range row {
@@ -86,13 +87,14 @@ func (f *field) push(p *piece, x int) bool {
 				f.updateCol(j+x, k)
 				if f.updateRow(k) {
 					nrCompletedRow++
+					nrCompletedCell += p.blockRow[i]
 				}
 			}
 		}
 	}
 
-	f.hlt = y
-	f.erosion = nrCompletedRow * 1
+	f.hlt = f.height - y
+	f.erosion = nrCompletedRow * nrCompletedCell
 	return true
 }
 

@@ -15,7 +15,7 @@ var tetriminoT = tetrimino{
 			},
 			[]int{0, 0, 0},
 			[]int{1, 2, 1},
-			[]int{1, 2},
+			[]int{1, 3},
 			2,
 			3,
 		},
