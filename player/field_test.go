@@ -41,11 +41,11 @@ func TestGetYPlayWell(test *testing.T) {
 	f.testGetYPlay(test, &tetriminoI, 1, 2, 16)
 }
 
-func Testput(test *testing.T) {
+func TestPut(test *testing.T) {
 	f := newField(fieldHeight, fieldWidth)
 
-	f.put(&tetriminoJ.pieces[1], 0)
-	f.put(&tetriminoO.pieces[0], 0)
+	f.put(getPiece(J, 1), 0)
+	f.put(getPiece(O, 0), 0)
 
 	if !f.eqRow(15, []int{1, 1}) ||
 		!f.eqRow(16, []int{1, 1}) ||
@@ -63,19 +63,19 @@ func TestInvalidput(test *testing.T) {
 	f := newField(fieldHeight, fieldWidth)
 
 	for i := 0; i < 5; i++ {
-		if !f.put(&tetriminoI.pieces[1], 0) {
+		if !f.put(getPiece(I, 1), 0) {
 			test.Errorf("Expected put succeed")
 		}
 	}
 
-	if f.put(&tetriminoI.pieces[1], 0) {
+	if f.put(getPiece(I, 1), 0) {
 		test.Errorf("Expected put failed")
 	}
 
-	if !f.put(&tetriminoI.pieces[0], 6) {
+	if !f.put(getPiece(I, 0), 6) {
 		test.Errorf("Expected put succeed")
 	}
-	if f.put(&tetriminoI.pieces[0], 7) {
+	if f.put(getPiece(I, 0), 7) {
 		test.Errorf("Expected put failed")
 	}
 }
@@ -99,17 +99,17 @@ func (f *field) fieldIsEmpty(test *testing.T) bool {
 func TestClearRow(test *testing.T) {
 	f := newField(fieldHeight, fieldWidth)
 
-	f.put(&tetriminoI.pieces[0], 0)
-	f.put(&tetriminoI.pieces[0], 4)
-	f.put(&tetriminoO.pieces[0], 8)
-	f.put(&tetriminoI.pieces[0], 0)
-	f.put(&tetriminoI.pieces[0], 4)
+	f.put(getPiece(I, 0), 0)
+	f.put(getPiece(I, 0), 4)
+	f.put(getPiece(O, 0), 8)
+	f.put(getPiece(I, 0), 0)
+	f.put(getPiece(I, 0), 4)
 	if !f.fieldIsEmpty(test) {
 		return
 	}
 
 	for x := 0; x < f.width; x++ {
-		f.put(&tetriminoI.pieces[1], x)
+		f.put(getPiece(I, 1), x)
 	}
 	if !f.fieldIsEmpty(test) {
 		return
@@ -122,7 +122,7 @@ func TestClearRowWithHole(test *testing.T) {
 	f.setRow(18, []int{0, 0, 1, 1, 1, 1, 1, 1, 1, 1})
 	f.setRow(19, []int{0, 1, 1, 1, 1, 1, 1, 1, 1, 0})
 
-	f.put(&tetriminoS.pieces[0], 0)
+	f.put(getPiece(S, 0), 0)
 
 	if f.col[0] == 0 && f.col[1] == 2 && f.col[2] == 2 &&
 		f.col[3] == 1 && f.col[4] == 1 && f.col[5] == 1 &&
