@@ -21,7 +21,7 @@ func (p *Player) Move(currT int, nextT []int) {
 	fmt.Println("move", t.name)
 	for _, piece := range t.pieces {
 		for x := 0; x < p.field.width-piece.width+1; x++ {
-			p.field.push(&piece, x)
+			p.field.put(&piece, x)
 			p.field.dump()
 		}
 	}

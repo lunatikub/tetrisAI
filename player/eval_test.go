@@ -65,7 +65,7 @@ func TestErosion(test *testing.T) {
 
 	f.setRow(18, []int{0, 0, 0, 1, 1, 1, 1, 1, 1, 1})
 	f.setRow(19, []int{1, 0, 1, 1, 1, 1, 1, 1, 1, 1})
-	f.push(&tetriminoT.pieces[2], 0)
+	f.put(&tetriminoT.pieces[2], 0)
 
 	expected := 8
 	if f.erosion != expected {
@@ -73,7 +73,7 @@ func TestErosion(test *testing.T) {
 	}
 
 	f.setRow(19, []int{0, 0, 1, 1, 1, 1, 1, 1, 1, 1})
-	f.push(&tetriminoO.pieces[0], 0)
+	f.put(&tetriminoO.pieces[0], 0)
 
 	expected = 2
 	if f.erosion != expected {
@@ -85,10 +85,22 @@ func TestHLT(test *testing.T) {
 	f := newField(fieldHeight, fieldWidth)
 
 	f.setRow(19, []int{0, 0, 1, 1, 1, 1, 1, 1, 1, 1})
-	f.push(&tetriminoO.pieces[0], 1)
+	f.put(getPiece(T, 0), 1)
 
 	expected := 1
 	if f.hlt != expected {
 		test.Errorf("Erosion: expected:%d, got:%d", expected, f.hlt)
+	}
+}
+
+func TestEval(test *testing.T) {
+	f1 := newField(fieldHeight, fieldWidth)
+	f2 := newField(fieldHeight, fieldWidth)
+
+	f1.setRow(19, []int{1, 0, 1, 0, 1, 0, 1, 0, 1, 0})
+	f2.setRow(19, []int{1, 1, 1, 1, 1, 0, 0, 0, 0, 0})
+
+	if f1.eval() > f2.eval() {
+		test.Errorf("Eval: expected:%d less than %d", f1.eval(), f2.eval())
 	}
 }

@@ -38,6 +38,11 @@ type tetrimino struct {
 	pieces []piece // tetrimino piece rotations
 }
 
+func getPiece(tetrimino int, rotation int) *piece {
+	t := getTetrimino(tetrimino)
+	return &t.pieces[rotation]
+}
+
 func getTetrimino(tetrimino int) *tetrimino {
 	switch tetrimino {
 	case I:

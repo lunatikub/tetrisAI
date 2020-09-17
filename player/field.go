@@ -8,8 +8,8 @@ type field struct {
 	row     []int // number of blocks filled by row
 	height  int
 	width   int
-	hlt     int // height where the last tetrimino has been pushed
-	erosion int // number of rows completed with the last tetrimino
+	hlt     int
+	erosion int
 }
 
 // Create a new field for the tetris game
@@ -26,7 +26,7 @@ func newField(h int, w int) field {
 	return f
 }
 
-// Get the row how to push a piece
+// Get the row how to put a piece
 func (f *field) getRow(p *piece, x int) int {
 	y := 0
 	for i := 0; i < p.width; i++ {
@@ -68,7 +68,7 @@ func (f *field) updateCol(x int, h int) {
 	}
 }
 
-func (f *field) push(p *piece, x int) bool {
+func (f *field) put(p *piece, x int) bool {
 	if x+p.width > f.width {
 		return false
 	}

@@ -1,9 +1,9 @@
 package player
 
-// Erosion is process at push.
+// Erosion is proceed at put.
 // Identifer: e
 
-// Height of last tetrimino played is process at push.
+// Height of last tetrimino played is proceed at put.
 // Identifier: l
 
 // Process row transitions.
@@ -37,7 +37,7 @@ func (f *field) deltaC() int {
 }
 
 // Process the holes.
-// Identifier: L
+// Identifier: h
 func (f *field) holes() int {
 	ho := 0
 	for x := 0; x < f.width; x++ {
@@ -72,7 +72,7 @@ func (f *field) getMinHeightNeighbors(x int) int {
 }
 
 // Process the whells.
-// Identifier: W
+// Identifier: w
 func (f *field) wells() int {
 	we := 0
 	for x := 0; x < f.width; x++ {
@@ -82,4 +82,23 @@ func (f *field) wells() int {
 		}
 	}
 	return we
+}
+
+const (
+	lW  = -1263
+	eW  = 660
+	drW = -922
+	dcW = -1977
+	hW  = -1308
+	wW  = -1049
+)
+
+// Dellacherie −l + e − dr − dc − 4h − w
+func (f *field) eval() int {
+	return lW*f.hlt +
+		eW*f.erosion +
+		drW*f.deltaR() +
+		dcW*f.deltaC() +
+		4*hW*f.holes() +
+		wW*f.wells()
 }
