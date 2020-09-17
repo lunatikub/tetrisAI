@@ -15,6 +15,7 @@ var tetriminoO = tetrimino{
 			},
 			[]int{0, 0},
 			[]int{2, 2},
+			[]int{2, 2},
 			2,
 			2,
 		},

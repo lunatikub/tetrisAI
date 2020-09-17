@@ -3,11 +3,13 @@ package player
 import "fmt"
 
 type field struct {
-	blocks [][]int
-	col    []int // height by column
-	row    []int // number of blocks filled by row
-	height int
-	width  int
+	blocks  [][]int
+	col     []int // height by column
+	row     []int // number of blocks filled by row
+	height  int
+	width   int
+	hlt     int // height where the last tetrimino has been pushed
+	erosion int // number of rows completed with the last tetrimino
 }
 
 // Create a new field for the tetris game
@@ -48,14 +50,16 @@ func (f *field) setCol() {
 	}
 }
 
-func (f *field) updateRow(y int) {
+func (f *field) updateRow(y int) bool {
 	f.row[y]++
 	// clear the row when it is full
 	if f.row[y] == f.width {
 		copy(f.blocks[1:], f.blocks[:y])
 		copy(f.row[1:], f.row[:y])
 		f.setCol()
+		return true
 	}
+	return false
 }
 
 func (f *field) updateCol(x int, h int) {
@@ -73,16 +77,22 @@ func (f *field) push(p *piece, x int) bool {
 		return false
 	}
 
+	nrCompletedRow := 0
 	for i, row := range p.blocks {
 		k := i + y - p.height
 		for j, v := range row {
 			if v == 1 {
 				f.blocks[k][j+x] = v
 				f.updateCol(j+x, k)
-				f.updateRow(k)
+				if f.updateRow(k) {
+					nrCompletedRow++
+				}
 			}
 		}
 	}
+
+	f.hlt = y
+	f.erosion = nrCompletedRow * 1
 	return true
 }
 
