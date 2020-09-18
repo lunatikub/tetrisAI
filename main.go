@@ -1,7 +1,7 @@
 package main
 
 import (
-	tetris "github.com/lunatikub/tetrisAI/player"
+	tetris "github.com/lunatikub/tetrisBot/player"
 )
 
 const (

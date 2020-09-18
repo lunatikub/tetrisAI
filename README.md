@@ -1,2 +1,2 @@
-# tetrisAI
-Tetris A.I. player
+# tetrisBot
+Tetris bot player

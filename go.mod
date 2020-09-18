@@ -1,4 +1,4 @@
-module github.com/lunatikub/tetrisAI
+module github.com/lunatikub/tetrisBot
 
 go 1.15
 
