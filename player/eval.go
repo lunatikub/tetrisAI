@@ -6,7 +6,7 @@ package player
 // Height of last tetrimino played is proceed at put.
 // Identifier: l
 
-// Process row transitions.
+// Process line transitions.
 // Identifer: dr
 func (f *field) deltaR() int {
 	dr := 0

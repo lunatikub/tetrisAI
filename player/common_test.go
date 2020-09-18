@@ -5,10 +5,10 @@ const (
 	fieldWidth  = 10
 )
 
-func (f *field) setRow(y int, row []int) {
-	copy(f.blocks[y], row)
+func (f *field) setLine(y int, line []int) {
+	copy(f.blocks[y], line)
 	n := 0
-	for x, v := range row {
+	for x, v := range line {
 		h := f.height - y
 		if v == 1 {
 			n++
@@ -17,11 +17,11 @@ func (f *field) setRow(y int, row []int) {
 			}
 		}
 	}
-	f.row[y] = n
+	f.line[y] = n
 }
 
-func (f *field) eqRow(y int, row []int) bool {
-	for x, v := range row {
+func (f *field) eqLine(y int, line []int) bool {
+	for x, v := range line {
 		if f.blocks[y][x] != v {
 			return false
 		}

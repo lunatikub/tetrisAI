@@ -7,8 +7,8 @@ import (
 func TestDeltaR(test *testing.T) {
 	f := newField(fieldHeight, fieldWidth)
 
-	f.setRow(18, []int{0, 0, 1, 1, 1, 0, 1, 0, 1, 0})
-	f.setRow(19, []int{0, 1, 0, 1, 0, 1, 0, 1, 0, 1})
+	f.setLine(18, []int{0, 0, 1, 1, 1, 0, 1, 0, 1, 0})
+	f.setLine(19, []int{0, 1, 0, 1, 0, 1, 0, 1, 0, 1})
 
 	expectedDr := 15
 	if dr := f.deltaR(); dr != expectedDr {
@@ -19,8 +19,8 @@ func TestDeltaR(test *testing.T) {
 func TestDeltaC(test *testing.T) {
 	f := newField(fieldHeight, fieldWidth)
 
-	f.setRow(18, []int{0, 0, 1, 1, 1, 0, 1, 0, 1, 0})
-	f.setRow(19, []int{0, 1, 0, 1, 0, 1, 0, 1, 0, 1})
+	f.setLine(18, []int{0, 0, 1, 1, 1, 0, 1, 0, 1, 0})
+	f.setLine(19, []int{0, 1, 0, 1, 0, 1, 0, 1, 0, 1})
 
 	expectedDc := 13
 	if dc := f.deltaC(); dc != expectedDc {
@@ -35,10 +35,10 @@ func TestDeltaC(test *testing.T) {
 func TestHoles(test *testing.T) {
 	f := newField(fieldHeight, fieldWidth)
 
-	f.setRow(16, []int{1, 0, 0, 0, 1, 0, 0, 0, 0, 0})
-	f.setRow(17, []int{0, 1, 0, 0, 0, 0, 0, 0, 0, 0})
-	f.setRow(18, []int{0, 0, 1, 0, 1, 0, 0, 0, 0, 0})
-	f.setRow(19, []int{0, 0, 0, 1, 0, 0, 0, 0, 0, 0})
+	f.setLine(16, []int{1, 0, 0, 0, 1, 0, 0, 0, 0, 0})
+	f.setLine(17, []int{0, 1, 0, 0, 0, 0, 0, 0, 0, 0})
+	f.setLine(18, []int{0, 0, 1, 0, 1, 0, 0, 0, 0, 0})
+	f.setLine(19, []int{0, 0, 0, 1, 0, 0, 0, 0, 0, 0})
 
 	expectedHo := 8
 	if ho := f.holes(); ho != expectedHo {
@@ -49,10 +49,10 @@ func TestHoles(test *testing.T) {
 func TestWells(test *testing.T) {
 	f := newField(fieldHeight, fieldWidth)
 
-	f.setRow(16, []int{1})
-	f.setRow(17, []int{1, 0, 1})
-	f.setRow(18, []int{1, 0, 1, 0, 1, 0, 1})
-	f.setRow(19, []int{1, 0, 1, 1, 1, 0, 1})
+	f.setLine(16, []int{1})
+	f.setLine(17, []int{1, 0, 1})
+	f.setLine(18, []int{1, 0, 1, 0, 1, 0, 1})
+	f.setLine(19, []int{1, 0, 1, 1, 1, 0, 1})
 
 	expectedWe := 10
 	if we := f.wells(); we != expectedWe {
@@ -63,8 +63,8 @@ func TestWells(test *testing.T) {
 func TestErosion(test *testing.T) {
 	f := newField(fieldHeight, fieldWidth)
 
-	f.setRow(18, []int{0, 0, 0, 1, 1, 1, 1, 1, 1, 1})
-	f.setRow(19, []int{1, 0, 1, 1, 1, 1, 1, 1, 1, 1})
+	f.setLine(18, []int{0, 0, 0, 1, 1, 1, 1, 1, 1, 1})
+	f.setLine(19, []int{1, 0, 1, 1, 1, 1, 1, 1, 1, 1})
 	f.put(getPiece(T, 2), 0)
 
 	expected := 8
@@ -72,7 +72,7 @@ func TestErosion(test *testing.T) {
 		test.Errorf("Erosion: expected:%d, got:%d", expected, f.erosion)
 	}
 
-	f.setRow(19, []int{0, 0, 1, 1, 1, 1, 1, 1, 1, 1})
+	f.setLine(19, []int{0, 0, 1, 1, 1, 1, 1, 1, 1, 1})
 	f.put(getPiece(O, 0), 0)
 
 	expected = 2
@@ -84,7 +84,7 @@ func TestErosion(test *testing.T) {
 func TestHLT(test *testing.T) {
 	f := newField(fieldHeight, fieldWidth)
 
-	f.setRow(19, []int{0, 0, 1, 1, 1, 1, 1, 1, 1, 1})
+	f.setLine(19, []int{0, 0, 1, 1, 1, 1, 1, 1, 1, 1})
 	f.put(getPiece(T, 0), 1)
 
 	expected := 1
@@ -97,8 +97,8 @@ func TestEval(test *testing.T) {
 	f1 := newField(fieldHeight, fieldWidth)
 	f2 := newField(fieldHeight, fieldWidth)
 
-	f1.setRow(19, []int{1, 0, 1, 0, 1, 0, 1, 0, 1, 0})
-	f2.setRow(19, []int{1, 1, 1, 1, 1, 0, 0, 0, 0, 0})
+	f1.setLine(19, []int{1, 0, 1, 0, 1, 0, 1, 0, 1, 0})
+	f2.setLine(19, []int{1, 1, 1, 1, 1, 0, 0, 0, 0, 0})
 
 	if f1.eval() > f2.eval() {
 		test.Errorf("Eval: expected:%d less than %d", f1.eval(), f2.eval())

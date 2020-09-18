@@ -5,7 +5,7 @@ import "fmt"
 type field struct {
 	blocks  [][]int
 	col     []int // height by column
-	row     []int // number of blocks filled by row
+	line    []int // number of blocks filled by line
 	height  int
 	width   int
 	hlt     int
@@ -20,14 +20,14 @@ func newField(h int, w int) field {
 		f.blocks[i] = make([]int, w)
 	}
 	f.col = make([]int, w)
-	f.row = make([]int, h)
+	f.line = make([]int, h)
 	f.width = w
 	f.height = h
 	return f
 }
 
-// Get the row how to put a piece
-func (f *field) getRow(p *piece, x int) int {
+// Get the line how to put a piece
+func (f *field) getLine(p *piece, x int) int {
 	y := 0
 	for i := 0; i < p.width; i++ {
 		if r := f.col[x+i] - p.holes[i]; r > y {
@@ -50,12 +50,12 @@ func (f *field) setCol() {
 	}
 }
 
-func (f *field) updateRow(y int) bool {
-	f.row[y]++
-	// clear the row when it is full
-	if f.row[y] == f.width {
+func (f *field) updateLine(y int) bool {
+	f.line[y]++
+	// clear the line when it is full
+	if f.line[y] == f.width {
 		copy(f.blocks[1:], f.blocks[:y])
-		copy(f.row[1:], f.row[:y])
+		copy(f.line[1:], f.line[:y])
 		f.setCol()
 		return true
 	}
@@ -72,45 +72,45 @@ func (f *field) put(p *piece, x int) bool {
 	if x+p.width > f.width {
 		return false
 	}
-	y := f.getRow(p, x)
+	y := f.getLine(p, x)
 	if y-p.height < 0 {
 		return false
 	}
 
-	nrCompletedRow := 0
+	nrCompletedLine := 0
 	nrCompletedCell := 0
-	for i, row := range p.blocks {
+	for i, line := range p.blocks {
 		k := i + y - p.height
-		for j, v := range row {
+		for j, v := range line {
 			if v == 1 {
 				f.blocks[k][j+x] = v
 				f.updateCol(j+x, k)
-				if f.updateRow(k) {
-					nrCompletedRow++
-					nrCompletedCell += p.blockRow[i]
+				if f.updateLine(k) {
+					nrCompletedLine++
+					nrCompletedCell += p.blockLine[i]
 				}
 			}
 		}
 	}
 
 	f.hlt = f.height - y
-	f.erosion = nrCompletedRow * nrCompletedCell
+	f.erosion = nrCompletedLine * nrCompletedCell
 	return true
 }
 
 func (f *field) dump() {
 	fmt.Println()
 	fmt.Println("    0 1 2 3 4 5 6 7 8 9")
-	for y, row := range f.blocks {
+	for y, line := range f.blocks {
 		fmt.Printf("%2d| ", y)
-		for _, v := range row {
+		for _, v := range line {
 			if v == 1 {
 				fmt.Print("X ")
 			} else {
 				fmt.Print(". ")
 			}
 		}
-		fmt.Printf(" |%2d\n", f.row[y])
+		fmt.Printf(" |%2d\n", f.line[y])
 	}
 	fmt.Print("   ")
 	for _, v := range f.col {

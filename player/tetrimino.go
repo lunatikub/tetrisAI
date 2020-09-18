@@ -27,7 +27,7 @@ type piece struct {
 	blocks    [][]int
 	holes     []int
 	heightCol []int
-	blockRow  []int
+	blockLine []int
 	height    int
 	width     int
 }

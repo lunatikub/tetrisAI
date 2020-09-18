@@ -6,7 +6,7 @@ import (
 
 func (f *field) testGetYPlay(test *testing.T, t *tetrimino, r int, x int, expectedY int) {
 	p := &t.pieces[r]
-	if y := f.getRow(p, x); y != expectedY {
+	if y := f.getLine(p, x); y != expectedY {
 		test.Errorf("tetrimino [%s,r:%d,x:%d]: expected:%d, got:%d",
 			t.name, r, x, expectedY, y)
 	}
@@ -15,8 +15,8 @@ func (f *field) testGetYPlay(test *testing.T, t *tetrimino, r int, x int, expect
 func TestGetYPlay(test *testing.T) {
 	f := newField(fieldHeight, fieldWidth)
 
-	f.setRow(18, []int{0, 1})
-	f.setRow(19, []int{1, 1, 1})
+	f.setLine(18, []int{0, 1})
+	f.setLine(19, []int{1, 1, 1})
 
 	f.testGetYPlay(test, &tetriminoJ, 1, 0, 18)
 	f.testGetYPlay(test, &tetriminoJ, 1, 1, 18)
@@ -31,10 +31,10 @@ func TestGetYPlay(test *testing.T) {
 func TestGetYPlayWell(test *testing.T) {
 	f := newField(fieldHeight, fieldWidth)
 
-	f.setRow(16, []int{1, 0, 1})
-	f.setRow(17, []int{1, 0, 1})
-	f.setRow(18, []int{1, 0, 1})
-	f.setRow(19, []int{1, 0, 1})
+	f.setLine(16, []int{1, 0, 1})
+	f.setLine(17, []int{1, 0, 1})
+	f.setLine(18, []int{1, 0, 1})
+	f.setLine(19, []int{1, 0, 1})
 
 	f.testGetYPlay(test, &tetriminoI, 1, 0, 16)
 	f.testGetYPlay(test, &tetriminoI, 1, 1, 20)
@@ -47,12 +47,12 @@ func TestPut(test *testing.T) {
 	f.put(getPiece(J, 1), 0)
 	f.put(getPiece(O, 0), 0)
 
-	if !f.eqRow(15, []int{1, 1}) ||
-		!f.eqRow(16, []int{1, 1}) ||
-		!f.eqRow(17, []int{1, 0}) ||
-		!f.eqRow(18, []int{1, 0}) ||
-		!f.eqRow(19, []int{1, 1}) {
-		test.Errorf("Testput row")
+	if !f.eqLine(15, []int{1, 1}) ||
+		!f.eqLine(16, []int{1, 1}) ||
+		!f.eqLine(17, []int{1, 0}) ||
+		!f.eqLine(18, []int{1, 0}) ||
+		!f.eqLine(19, []int{1, 1}) {
+		test.Errorf("Testput line")
 	}
 	if f.col[0] != 5 || f.col[1] != 5 {
 		test.Errorf("Testput col")
@@ -88,15 +88,15 @@ func (f *field) fieldIsEmpty(test *testing.T) bool {
 		}
 	}
 	for y := 0; y < f.height; y++ {
-		if f.row[y] != 0 {
-			test.Errorf("row[%d] expected:0, got:%d", y, f.row[y])
+		if f.line[y] != 0 {
+			test.Errorf("line[%d] expected:0, got:%d", y, f.line[y])
 			return false
 		}
 	}
 	return true
 }
 
-func TestClearRow(test *testing.T) {
+func TestClearLine(test *testing.T) {
 	f := newField(fieldHeight, fieldWidth)
 
 	f.put(getPiece(I, 0), 0)
@@ -116,11 +116,11 @@ func TestClearRow(test *testing.T) {
 	}
 }
 
-func TestClearRowWithHole(test *testing.T) {
+func TestClearLineWithHole(test *testing.T) {
 	f := newField(fieldHeight, fieldWidth)
 
-	f.setRow(18, []int{0, 0, 1, 1, 1, 1, 1, 1, 1, 1})
-	f.setRow(19, []int{0, 1, 1, 1, 1, 1, 1, 1, 1, 0})
+	f.setLine(18, []int{0, 0, 1, 1, 1, 1, 1, 1, 1, 1})
+	f.setLine(19, []int{0, 1, 1, 1, 1, 1, 1, 1, 1, 0})
 
 	f.put(getPiece(S, 0), 0)
 
@@ -130,5 +130,5 @@ func TestClearRowWithHole(test *testing.T) {
 		f.col[9] == 0 {
 		return
 	}
-	test.Errorf("Test clear row with hole failed")
+	test.Errorf("Test clear line with hole failed")
 }
