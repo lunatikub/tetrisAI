@@ -65,7 +65,7 @@ func TestErosion(test *testing.T) {
 
 	f.setLine(18, []int{0, 0, 0, 1, 1, 1, 1, 1, 1, 1})
 	f.setLine(19, []int{1, 0, 1, 1, 1, 1, 1, 1, 1, 1})
-	f.put(getPiece(T, 2), 0)
+	f.put(T, 2, 0)
 
 	expected := 8
 	if f.erosion != expected {
@@ -73,7 +73,7 @@ func TestErosion(test *testing.T) {
 	}
 
 	f.setLine(19, []int{0, 0, 1, 1, 1, 1, 1, 1, 1, 1})
-	f.put(getPiece(O, 0), 0)
+	f.put(O, 0, 0)
 
 	expected = 2
 	if f.erosion != expected {
@@ -85,7 +85,7 @@ func TestHLT(test *testing.T) {
 	f := newField(fieldHeight, fieldWidth)
 
 	f.setLine(19, []int{0, 0, 1, 1, 1, 1, 1, 1, 1, 1})
-	f.put(getPiece(T, 0), 1)
+	f.put(T, 0, 1)
 
 	expected := 1
 	if f.hlt != expected {

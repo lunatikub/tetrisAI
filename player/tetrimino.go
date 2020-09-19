@@ -1,5 +1,7 @@
 package player
 
+import "log"
+
 //  +---------+---------+---------+
 //  | I: XXXX | L: XXX  | J: XXX  |
 //  |         |      X  |    X    |
@@ -12,7 +14,8 @@ package player
 //  +---------+
 //  */
 const (
-	I = iota
+	emptyT = iota
+	I
 	J
 	L
 	O
@@ -60,5 +63,6 @@ func getTetrimino(tetrimino int) *tetrimino {
 	case Z:
 		return &tetriminoZ
 	}
-	panic("Not available tetrimino")
+	log.Fatalf("Not available tretrimino %d", tetrimino)
+	panic("")
 }

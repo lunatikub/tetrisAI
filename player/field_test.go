@@ -44,18 +44,18 @@ func TestGetYPlayWell(test *testing.T) {
 func TestPut(test *testing.T) {
 	f := newField(fieldHeight, fieldWidth)
 
-	f.put(getPiece(J, 1), 0)
-	f.put(getPiece(O, 0), 0)
+	f.put(J, 1, 0)
+	f.put(O, 0, 0)
 
 	if !f.eqLine(15, []int{1, 1}) ||
 		!f.eqLine(16, []int{1, 1}) ||
 		!f.eqLine(17, []int{1, 0}) ||
 		!f.eqLine(18, []int{1, 0}) ||
 		!f.eqLine(19, []int{1, 1}) {
-		test.Errorf("Testput line")
+		test.Errorf("TestPut line")
 	}
 	if f.col[0] != 5 || f.col[1] != 5 {
-		test.Errorf("Testput col")
+		test.Errorf("TestPut col")
 	}
 }
 
@@ -63,19 +63,19 @@ func TestInvalidput(test *testing.T) {
 	f := newField(fieldHeight, fieldWidth)
 
 	for i := 0; i < 5; i++ {
-		if !f.put(getPiece(I, 1), 0) {
+		if !f.put(I, 1, 0) {
 			test.Errorf("Expected put succeed")
 		}
 	}
 
-	if f.put(getPiece(I, 1), 0) {
+	if f.put(I, 1, 0) {
 		test.Errorf("Expected put failed")
 	}
 
-	if !f.put(getPiece(I, 0), 6) {
+	if !f.put(I, 0, 6) {
 		test.Errorf("Expected put succeed")
 	}
-	if f.put(getPiece(I, 0), 7) {
+	if f.put(I, 0, 7) {
 		test.Errorf("Expected put failed")
 	}
 }
@@ -99,17 +99,17 @@ func (f *field) fieldIsEmpty(test *testing.T) bool {
 func TestClearLine(test *testing.T) {
 	f := newField(fieldHeight, fieldWidth)
 
-	f.put(getPiece(I, 0), 0)
-	f.put(getPiece(I, 0), 4)
-	f.put(getPiece(O, 0), 8)
-	f.put(getPiece(I, 0), 0)
-	f.put(getPiece(I, 0), 4)
+	f.put(I, 0, 0)
+	f.put(I, 0, 4)
+	f.put(O, 0, 8)
+	f.put(I, 0, 0)
+	f.put(I, 0, 4)
 	if !f.fieldIsEmpty(test) {
 		return
 	}
 
 	for x := 0; x < f.width; x++ {
-		f.put(getPiece(I, 1), x)
+		f.put(I, 1, x)
 	}
 	if !f.fieldIsEmpty(test) {
 		return
@@ -122,7 +122,7 @@ func TestClearLineWithHole(test *testing.T) {
 	f.setLine(18, []int{0, 0, 1, 1, 1, 1, 1, 1, 1, 1})
 	f.setLine(19, []int{0, 1, 1, 1, 1, 1, 1, 1, 1, 0})
 
-	f.put(getPiece(S, 0), 0)
+	f.put(S, 0, 0)
 
 	if f.col[0] == 0 && f.col[1] == 2 && f.col[2] == 2 &&
 		f.col[3] == 1 && f.col[4] == 1 && f.col[5] == 1 &&
@@ -131,4 +131,19 @@ func TestClearLineWithHole(test *testing.T) {
 		return
 	}
 	test.Errorf("Test clear line with hole failed")
+}
+
+func TestBug513(test *testing.T) {
+	f := newField(fieldHeight, fieldWidth)
+
+	f.setLine(14, []int{0, 0, 0, 5, 0, 0, 0, 0, 0, 0})
+	f.setLine(15, []int{0, 0, 0, 5, 5, 2, 2, 0, 0, 0})
+	f.setLine(16, []int{0, 7, 3, 3, 5, 7, 2, 0, 5, 5})
+	f.setLine(17, []int{7, 7, 3, 3, 7, 7, 2, 5, 5, 0})
+	f.setLine(18, []int{0, 3, 5, 4, 4, 2, 7, 3, 3, 2})
+	f.setLine(19, []int{0, 3, 3, 3, 2, 7, 7, 3, 2, 5})
+
+	f.dump()
+	f.put(5, 1, 3)
+	f.dump()
 }

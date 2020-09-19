@@ -1,6 +1,8 @@
 package player
 
-import "fmt"
+import (
+	"fmt"
+)
 
 type field struct {
 	blocks  [][]int
@@ -13,8 +15,8 @@ type field struct {
 }
 
 // Create a new field for the tetris game
-func newField(h int, w int) field {
-	var f field
+func newField(h int, w int) *field {
+	f := new(field)
 	f.blocks = make([][]int, h)
 	for i := range f.blocks {
 		f.blocks[i] = make([]int, w)
@@ -24,6 +26,16 @@ func newField(h int, w int) field {
 	f.width = w
 	f.height = h
 	return f
+}
+
+func (f *field) duplicate() *field {
+	newF := newField(f.height, f.width)
+	for i := range f.blocks {
+		copy(newF.blocks[i], f.blocks[i])
+	}
+	copy(newF.col, f.col)
+	copy(newF.line, f.line)
+	return newF
 }
 
 // Get the line how to put a piece
@@ -41,7 +53,7 @@ func (f *field) setCol() {
 	for x := 0; x < f.width; x++ {
 		y := 0
 		for {
-			if y == f.height || f.blocks[y][x] == 1 {
+			if y == f.height || f.blocks[y][x] > 0 {
 				break
 			}
 			y++
@@ -68,7 +80,8 @@ func (f *field) updateCol(x int, h int) {
 	}
 }
 
-func (f *field) put(p *piece, x int) bool {
+func (f *field) put(t int, r int, x int) bool {
+	p := getPiece(t, r)
 	if x+p.width > f.width {
 		return false
 	}
@@ -82,8 +95,8 @@ func (f *field) put(p *piece, x int) bool {
 	for i, line := range p.blocks {
 		k := i + y - p.height
 		for j, v := range line {
-			if v == 1 {
-				f.blocks[k][j+x] = v
+			if v != 0 {
+				f.blocks[k][j+x] = t
 				f.updateCol(j+x, k)
 				if f.updateLine(k) {
 					nrCompletedLine++
@@ -99,22 +112,22 @@ func (f *field) put(p *piece, x int) bool {
 }
 
 func (f *field) dump() {
-	fmt.Println()
-	fmt.Println("    0 1 2 3 4 5 6 7 8 9")
-	for y, line := range f.blocks {
-		fmt.Printf("%2d| ", y)
+	for _, line := range f.blocks {
 		for _, v := range line {
-			if v == 1 {
-				fmt.Print("X ")
+			if v != 0 {
+				fmt.Printf("%d", v)
 			} else {
-				fmt.Print(". ")
+				fmt.Print(".")
 			}
 		}
-		fmt.Printf(" |%2d\n", f.line[y])
+		fmt.Println()
 	}
-	fmt.Print("   ")
 	for _, v := range f.col {
-		fmt.Printf("%2d", v)
+		fmt.Print(v, " ")
+	}
+	fmt.Println()
+	for _, v := range f.line {
+		fmt.Print(v, " ")
 	}
 	fmt.Println()
 }
